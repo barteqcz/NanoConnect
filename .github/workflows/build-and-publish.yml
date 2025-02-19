@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: [3.x]  # Use the latest available version in the 3.x series
+        python-version: [3.x]
 
     steps:
       - name: Checkout repository
@@ -29,19 +29,13 @@ jobs:
         run: pip install --upgrade pip pyinstaller paramiko
 
       - name: Compile .py file
-        run: |
-          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-            pyinstaller --onefile --name nanoconnect nanoconnect.py
-          else
-            pyinstaller --onefile --name nanoconnect nanoconnect.py
-          fi
+        run: pyinstaller --onefile --name nanoconnect nanoconnect.py
         shell: bash
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            dist/nanoconnect_${{ matrix.os == 'windows-latest' && 'windows.exe' || 'linux' }}
+          files: dist/nanoconnect${{ matrix.os == 'windows-latest' && '.exe' || '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
