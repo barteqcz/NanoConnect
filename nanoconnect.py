@@ -21,8 +21,13 @@ def sshConnection(hostname, username, password, port):
 
 def commandRunning(ssh_client, command):
     stdin, stdout, stderr = ssh_client.exec_command(command)
-    print(stdout.read().decode())
-    print(stderr.read().decode())
+    stdout_output = stdout.read().decode().strip()
+    stderr_output = stderr.read().decode().strip()
+
+    if stdout_output:
+        print(stdout_output)
+    if stderr_output:
+        print(stderr_output)
 
 def closeAll():
     print("Stopping NanoRDS and closing the connection...")
@@ -145,7 +150,7 @@ fifo_path = /home/username/rdsfifo""")
                 input("Press any key to exit...")
                 closeAll()
 
-            commandRunning(ssh_client, f'nanords --fifo {fifo_path}')
+            commandRunning(ssh_client, f'nanords --fifo {fifo_path} > /dev/null 2>&1 &')
             try:
                 print(f"Reading commands from {source_path}")
                 with open(source_path, 'r') as file:
