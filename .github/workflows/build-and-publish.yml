@@ -31,9 +31,9 @@ jobs:
       - name: Compile .py file
         run: |
           if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-            pyinstaller --onefile --name nanoconnect_linux nanoconnect.py
+            pyinstaller --onefile --name nanoconnect nanoconnect.py
           else
-            pyinstaller --onefile --name nanoconnect_windows nanoconnect.py
+            pyinstaller --onefile --name nanoconnect nanoconnect.py
           fi
         shell: bash
 
