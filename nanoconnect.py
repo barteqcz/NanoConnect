@@ -145,7 +145,7 @@ fifo_path = /home/username/rdsfifo""")
                 input("Press any key to exit...")
                 closeAll()
 
-            commandRunning(ssh_client, f'nanords --fifo {fifo_path}"')
+            commandRunning(ssh_client, f'nanords --fifo {fifo_path}')
             try:
                 print(f"Reading commands from {source_path}")
                 with open(source_path, 'r') as file:
