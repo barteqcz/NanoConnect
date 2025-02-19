@@ -152,7 +152,7 @@ fifo_path = /home/username/rdsfifo""")
 
             commandRunning(ssh_client, f'nanords --fifo {fifo_path} > /dev/null 2>&1 &')
             try:
-                print(f"Reading commands from {source_path}")
+                print(f"Reading commands from '{source_path}'...")
                 with open(source_path, 'r') as file:
                     for line in file:
                         command = line.strip()
